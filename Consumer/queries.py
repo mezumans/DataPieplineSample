@@ -13,7 +13,7 @@ class Queries():
                         group by customers.country'"""
 
         QUERY2 = """select customers.country,GROUP_CONCAT(albums.title) from 
-                customers join invoices on customers.customerid = invoices.customerid
+                    customers join invoices on customers.customerid = invoices.customerid
                     join invoice_items on invoice_items.invoiceid = invoices.invoiceid
                     join tracks on tracks.trackid = invoice_items.trackid
                     join albums on tracks.albumid = albums.albumid
@@ -25,10 +25,12 @@ class Queries():
                     join tracks on tracks.trackid = invoice_items.trackid
                     join genres on genres.genreid = tracks.genreid
                     join albums on tracks.albumid = albums.albumid
-                    where year1 = {} and customers.country = {} 'and genres.Name = 'Jazz'
+                    where year1 = {} and customers.country = {} 'and genres.Name = 'Rock'
                     group by albums.title
                     order by quan desc
                     limit 1""".format(self.year,self.country)
+
+        
 
         self.queries = [QUERY0,QUERY1,QUERY2,QUERY3]
 

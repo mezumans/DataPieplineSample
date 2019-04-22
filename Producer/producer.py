@@ -1,7 +1,7 @@
 import sqlite3
 import pika
 
-class Produceer():
+class Producer():
     def __init__(self,rabbitmq_host):
        self.init_rabbitmq_connection(rabbitmq_host)
        self.declare_rabbitmq_queue()
@@ -20,4 +20,3 @@ class Produceer():
                             body="{}, {}, {}".format(db_path,year,country))
 
         
-
