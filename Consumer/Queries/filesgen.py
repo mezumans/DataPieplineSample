@@ -24,8 +24,3 @@ class FilesGenerator():
     def save_file(self,file_suffix,content):
         with open(self.path+file_suffix,'w') as file:
             file.write(file)
-
-    def create_table_from_query(self,table_name,query,cursor):
-        query = 'CREATE TABLE {0} AS' + query.format(table_name)
-        cursor.execute(query)
-
