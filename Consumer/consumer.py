@@ -1,8 +1,8 @@
 import sqlite3
 import pika
 import pandas as pd
-from Queries.queries import Queries
-from Queries.filesgen import FilesGenerator
+from ..filesgen import FilesGenerator
+from ..queries import Queries
 
 class Consumer():
     def __init__(self,rabbitmq_host,country,year,file_path):
@@ -31,7 +31,6 @@ class Consumer():
     def start_sql_connection(self,db_path):    
         conn = sqlite3.connect(db_path)
         return conn
-
     
     def _send_queries(self,queries,conn):
         for i in range(0,4):
@@ -46,7 +45,6 @@ class Consumer():
                 self.files_gen.generate_xml(df)    
                 self._create_table_from_query(str(i),query,conn)
 
-    
     def _create_table_from_query(self,table_name,query,conn):
         cursor = conn.cursor()
         query = 'CREATE TABLE {0} AS' + query.format(table_name)
