@@ -1,0 +1,25 @@
+,Country,count(invoice_items.invoicelineid)
+0,Argentina,38
+1,Australia,38
+2,Austria,38
+3,Belgium,38
+4,Brazil,190
+5,Canada,304
+6,Chile,38
+7,Czech Republic,76
+8,Denmark,38
+9,Finland,38
+10,France,190
+11,Germany,152
+12,Hungary,38
+13,India,74
+14,Ireland,38
+15,Italy,38
+16,Netherlands,38
+17,Norway,38
+18,Poland,38
+19,Portugal,76
+20,Spain,38
+21,Sweden,38
+22,USA,494
+23,United Kingdom,114

@@ -1,0 +1,25 @@
+,Country,count(invoices.invoiceid)
+0,Argentina,7
+1,Australia,7
+2,Austria,7
+3,Belgium,7
+4,Brazil,35
+5,Canada,56
+6,Chile,7
+7,Czech Republic,14
+8,Denmark,7
+9,Finland,7
+10,France,35
+11,Germany,28
+12,Hungary,7
+13,India,13
+14,Ireland,7
+15,Italy,7
+16,Netherlands,7
+17,Norway,7
+18,Poland,7
+19,Portugal,14
+20,Spain,7
+21,Sweden,7
+22,USA,91
+23,United Kingdom,21
