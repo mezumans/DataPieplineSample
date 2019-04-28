@@ -4,15 +4,17 @@ import pandas as pd
 import logging
 import random
 
+import os
+
 class Consumer():
-    def __init__(self,rabbitmq_host,folder_path):
+    def __init__(self,rabbitmq_host,working_dir = os.getcwd):
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(rabbitmq_host))
         self.channel = self.connection.channel()
         self.declare_rabbitmq_queue()
         self.db_path = None
-        self.stop_consume = False
-        self.files_gen = FilesGenerator(folder_path)
-        logging.info("Consumer started, folder path: {0}".format(folder_path))
+        self.working_dir = working_dir
+        self.files_gen = FilesGenerator(self.working_dir)
+        logging.info("Consumer started, folder path: {0}".format(working_dir))
 
     def declare_rabbitmq_queue(self):
         self.channel.queue_declare(queue='pipeline')
@@ -21,6 +23,7 @@ class Consumer():
     def callback(self,ch, method, properties, body):
         logging.info("Callback was called with args:{0}".format(body))
         self.db_path,year,country = self._parse_inputs(body)
+        print(self.db_path)
         queries = Queries(year,country)
         conn = self.start_sql_connection(self.db_path)
         self._send_queries(queries,conn)
@@ -56,7 +59,7 @@ class Consumer():
             else:
                 self.files_gen.generate_xml(df)    
                 self._create_table_from_query(str(i),query,conn)
-                self.channel.stop_consuming()
+                
     def _create_table_from_query(self,table_name,query,conn):
         table_name = "Query{0}{1}".format( str(table_name),str(random.randint(0,100)))
         cursor = conn.cursor()
@@ -74,7 +77,7 @@ class Consumer():
 
 class FilesGenerator():
     def __init__(self,path):
-        self.folder_path = path
+        self.working_dir = path
         self.file_num = 0
     
     def generate_csv(self,df):
@@ -95,7 +98,7 @@ class FilesGenerator():
         self.save_file(content,'json')
 
     def save_file(self,content,file_suffix):
-        full_path = "{0}\{1}{2}.{3}".format(self.folder_path,"resultedFile",self.file_num,file_suffix)
+        full_path = "{0}\{1}{2}.{3}".format(self.working_dir,"resultedFile",self.file_num,file_suffix)
         self.file_num+=1
         with open(full_path,'w') as file:
             file.write(content)
