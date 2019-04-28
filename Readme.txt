@@ -4,12 +4,12 @@
 DataTask
 	Two modules: Producer and Consumer
 
-To initate example, from DataTask dir :
+To initate example, from DataPieplineSample dir :
 
 To init producer:
 python Producer rabbimq_host db_path year country
 i.e:
-python Producer localhost F:\JobInterviews\DataTask\chinook.db 2009 USA
+python Producer localhost chinook.db 2009 USA
 
 To init consumer:
 python Consumer rabbimq_host
